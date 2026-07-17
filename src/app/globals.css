@@ -109,4 +109,29 @@
     -webkit-mask-image: linear-gradient(to bottom, black 82%, transparent);
     mask-image: linear-gradient(to bottom, black 82%, transparent);
   }
+
+  /* Hero entrance — CSS-driven so the hero is visible at FIRST PAINT and does
+     NOT wait for JS/hydration. The element's base state is visible; the
+     animation fades it up from below. Runs off the browser's clock, not React's. */
+  .hero-rise {
+    animation: rise-in 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced motion: show the hero instantly (no stagger delay). */
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise {
+    animation-delay: 0ms !important;
+  }
 }
