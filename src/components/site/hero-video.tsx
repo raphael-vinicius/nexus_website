@@ -94,21 +94,11 @@ export function HeroVideo({ className }: { className?: string }) {
       />
 
       {mode && !reduce && ready && (
-        <video
+        <div
           key={base}
-          className="absolute inset-0 h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          poster={poster}
+          className="absolute inset-0 h-full w-full bg-black"
           aria-hidden="true"
-          tabIndex={-1}
-          disablePictureInPicture
-        >
-          <source src={`/videos/${base}.mp4`} type="video/mp4" />
-        </video>
+        />
       )}
     </div>
   );
