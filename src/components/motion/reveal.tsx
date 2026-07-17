@@ -19,7 +19,12 @@ type RevealProps = HTMLMotionProps<"div"> & {
 };
 
 /**
- * Apple-like entrance: opacity + gentle translateY + slight blur.
+ * Apple-like entrance: opacity + gentle translateY.
+ *
+ * No animated `filter: blur()` — animating `filter` forces the browser to
+ * re-rasterize the layer every frame (very costly on mobile/WebKit), while
+ * `opacity` + `transform` stay on the compositor. Timing, easing, delay and
+ * vertical travel are unchanged, so the motion looks practically identical.
  * Triggers once on scroll-in. Fully disabled under prefers-reduced-motion.
  */
 export function Reveal({
@@ -32,13 +37,10 @@ export function Reveal({
   const reduce = useReducedMotion();
 
   const variants: Variants = {
-    hidden: reduce
-      ? { opacity: 0 }
-      : { opacity: 0, y, filter: "blur(8px)" },
+    hidden: reduce ? { opacity: 0 } : { opacity: 0, y },
     show: {
       opacity: 1,
       y: 0,
-      filter: "blur(0px)",
       transition: {
         duration: 0.9,
         delay,

@@ -7,8 +7,6 @@ import {
   type AppleCategory,
 } from "@/lib/apple";
 import { AppleCategoryShell } from "@/components/apple/AppleCategoryShell";
-import { Footer } from "@/components/site/footer";
-import { Navbar } from "@/components/site/navbar";
 
 type CategoryPageProps = {
   params: Promise<{
@@ -53,12 +51,8 @@ export default async function AppleCategoryPage({ params }: CategoryPageProps) {
   }
 
   return (
-    <>
-      <Navbar />
-      <main id="conteudo">
-        <AppleCategoryShell category={category} />
-      </main>
-      <Footer />
-    </>
+    <main id="conteudo">
+      <AppleCategoryShell category={category} />
+    </main>
   );
 }

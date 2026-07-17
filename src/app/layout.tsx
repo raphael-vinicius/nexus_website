@@ -4,6 +4,8 @@ import { Inter } from "next/font/google";
 import { BRAND } from "@/lib/site";
 import { AmbientBackground } from "@/components/site/ambient-background";
 import { SmoothScroll } from "@/components/site/smooth-scroll";
+import { Navbar } from "@/components/site/navbar";
+import { Footer } from "@/components/site/footer";
 import "./globals.css";
 
 const inter = Inter({
@@ -65,7 +67,13 @@ export default function RootLayout({
         >
           Pular para o conteúdo
         </a>
+        {/* Navbar + Footer live in the layout so they persist across client-side
+            navigations (no remount on route change) — only {children} swaps.
+            This removes the per-navigation remount of the Navbar's effects and
+            Framer Motion setup, shortening time-to-interactive on mobile. */}
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

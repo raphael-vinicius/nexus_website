@@ -3,8 +3,6 @@ import { notFound } from "next/navigation";
 
 import { IPHONES, getIphone } from "@/lib/iphones";
 import { IphoneModelDetail } from "@/components/apple/iphones/IphoneModelDetail";
-import { Footer } from "@/components/site/footer";
-import { Navbar } from "@/components/site/navbar";
 
 type ModelPageProps = {
   params: Promise<{ slug: string }>;
@@ -39,12 +37,8 @@ export default async function IphoneModelPage({ params }: ModelPageProps) {
   }
 
   return (
-    <>
-      <Navbar />
-      <main id="conteudo">
-        <IphoneModelDetail iphone={iphone} />
-      </main>
-      <Footer />
-    </>
+    <main id="conteudo">
+      <IphoneModelDetail iphone={iphone} />
+    </main>
   );
 }
