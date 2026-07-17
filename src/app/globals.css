@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Nexus Importados — design tokens
+  Single premium dark theme. Neon is accent-only:
+  ~95% black/white · ~4% green · ~1% purple.
+*/
+:root {
+  /* Brand */
+  --nexus-green: 151 100% 45%; /* neon emerald — accent */
+  --nexus-purple: 271 91% 65%; /* neon violet — rare accent */
+  --nexus-ink: 240 6% 4%;
+
+  /* Semantic (shadcn) */
+  --background: 240 16% 2%; /* #050507 — never flat black */
+  --foreground: 0 0% 98%;
+
+  --card: 240 6% 6%;
+  --card-foreground: 0 0% 98%;
+
+  --muted: 240 5% 10%;
+  --muted-foreground: 0 0% 64%;
+
+  --primary: 0 0% 100%;
+  --primary-foreground: 0 0% 0%;
+
+  --secondary: 0 0% 100%;
+  --secondary-foreground: 0 0% 100%;
+
+  --border: 240 6% 12%;
+  --input: 240 5% 14%;
+  --ring: var(--nexus-green);
+
+  --radius: 0.75rem;
+
+  /* SF Pro when available (Apple devices), Inter as the loaded fallback */
+  --font-sans: -apple-system, "SF Pro Display", "SF Pro Text",
+    BlinkMacSystemFont, var(--font-inter), "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* offset for the fixed navbar when jumping to #anchors */
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: hsl(var(--nexus-green) / 0.28);
+    color: hsl(var(--foreground));
+  }
+
+  /* Keyboard focus — brand ring, always visible for a11y */
+  :focus-visible {
+    outline: 2px solid hsl(var(--nexus-green));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Respect user's motion preference (WCAG 2.2) */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  /* the single neon-green highlight (hero) */
+  .text-neon {
+    color: hsl(var(--nexus-green));
+  }
+  /* faint elevated hairline used on premium cards */
+  .hairline {
+    box-shadow: inset 0 1px 0 0 hsl(0 0% 100% / 0.06);
+  }
+  /* fade content edges to black — used at section seams */
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, black 82%, transparent);
+    mask-image: linear-gradient(to bottom, black 82%, transparent);
+  }
+}

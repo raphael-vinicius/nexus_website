@@ -1,0 +1,120 @@
+"use client";
+
+import * as React from "react";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
+
+import { SECTION, whatsappUrl } from "@/lib/site";
+import { Button } from "@/components/ui/button";
+import { WhatsAppIcon } from "@/components/icons/whatsapp";
+import { HeroVideo } from "@/components/site/hero-video";
+
+export function Hero() {
+  const reduce = useReducedMotion();
+
+  const container: Variants = {
+    hidden: {},
+    show: {
+      transition: { staggerChildren: reduce ? 0 : 0.14, delayChildren: 0.15 },
+    },
+  };
+  const item: Variants = {
+    hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 24, filter: "blur(10px)" },
+    show: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: { duration: 1, ease: [0.22, 1, 0.36, 1] },
+    },
+  };
+
+  return (
+    <section
+      id={SECTION.hero}
+      aria-label="Apresentação"
+      className="relative flex h-[100svh] min-h-[560px] w-full flex-col items-center justify-center overflow-hidden"
+    >
+      <HeroVideo />
+
+      {/* ── Overlay stack (tuned from measured luminance) ───────────── */}
+      {/* base darkening */}
+      <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
+      {/* top (navbar) + bottom (CTA) reinforcement */}
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/85"
+        aria-hidden="true"
+      />
+      {/* soft vignette to focus the type */}
+      <div
+        className="absolute inset-0 [background:radial-gradient(120%_120%_at_50%_38%,transparent_42%,rgba(0,0,0,0.45)_100%)]"
+        aria-hidden="true"
+      />
+      {/* brand-tinted edge glows — extremely subtle, tie the hero to the ambient
+          background without ever hiding the video (screen = adds light).
+          Green (bottom-left) stays the main accent; purple (bottom-right) only
+          balances the composition. */}
+      <div
+        className="absolute inset-0 mix-blend-screen [background:radial-gradient(70%_45%_at_12%_100%,hsl(var(--nexus-green)/0.10),transparent_60%)]"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute -bottom-[10%] -right-[8%] h-[45vh] w-[46vw] rounded-full bg-[hsl(var(--nexus-purple)/0.07)] mix-blend-screen blur-[210px]"
+        aria-hidden="true"
+      />
+
+      {/* ── Content ─────────────────────────────────────────────────── */}
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="container relative z-10 flex flex-col items-center text-center"
+      >
+        <motion.p
+          variants={item}
+          className="mb-5 text-xs font-medium uppercase tracking-[0.32em] text-white/55"
+        >
+          Nexus Importados
+        </motion.p>
+
+        <motion.h1
+          variants={item}
+          className="max-w-[15ch] text-balance text-[clamp(2.35rem,8.5vw,5.25rem)] font-semibold leading-[1.02] tracking-tightest text-white [text-shadow:0_2px_40px_rgba(0,0,0,0.45)]"
+        >
+          Tecnologia que acompanha{" "}
+          seu <span className="text-neon">estilo de vida.</span>
+        </motion.h1>
+
+        <motion.p
+          variants={item}
+          className="mt-6 text-balance text-base text-white/75 sm:text-lg"
+        >
+          Qualidade Apple. Mobilidade Elétrica.{" "}
+          <span className="text-white">É Nexus.</span>
+        </motion.p>
+
+        <motion.div
+          variants={item}
+          className="mt-9 flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row"
+        >
+          <Button asChild size="lg" className="w-full sm:w-auto">
+            <a href={`#${SECTION.universe}`}>Explorar</a>
+          </Button>
+          <Button
+            asChild
+            variant="glass"
+            size="lg"
+            className="w-full sm:w-auto"
+          >
+            <a
+              href={whatsappUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <WhatsAppIcon className="size-5" />
+              WhatsApp
+            </a>
+          </Button>
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
