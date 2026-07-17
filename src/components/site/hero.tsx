@@ -3,7 +3,6 @@ import * as React from "react";
 import { SECTION, whatsappUrl } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/icons/whatsapp";
-import { HeroVideo } from "@/components/site/hero-video";
 
 /**
  * Home hero.
@@ -26,34 +25,6 @@ export function Hero() {
       aria-label="Apresentação"
       className="relative flex h-[100svh] min-h-[560px] w-full flex-col items-center justify-center overflow-hidden"
     >
-      <HeroVideo />
-
-      {/* ── Overlay stack (tuned from measured luminance) ───────────── */}
-      {/* base darkening */}
-      <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
-      {/* top (navbar) + bottom (CTA) reinforcement */}
-      <div
-        className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/85"
-        aria-hidden="true"
-      />
-      {/* soft vignette to focus the type */}
-      <div
-        className="absolute inset-0 [background:radial-gradient(120%_120%_at_50%_38%,transparent_42%,rgba(0,0,0,0.45)_100%)]"
-        aria-hidden="true"
-      />
-      {/* brand-tinted edge glows — extremely subtle, tie the hero to the ambient
-          background without ever hiding the video (screen = adds light).
-          Green (bottom-left) stays the main accent; purple (bottom-right) only
-          balances the composition. */}
-      <div
-        className="absolute inset-0 mix-blend-screen [background:radial-gradient(70%_45%_at_12%_100%,hsl(var(--nexus-green)/0.10),transparent_60%)]"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute -bottom-[10%] -right-[8%] h-[45vh] w-[46vw] rounded-full bg-[hsl(var(--nexus-purple)/0.07)] mix-blend-screen blur-[210px]"
-        aria-hidden="true"
-      />
-
       {/* ── Content ─────────────────────────────────────────────────── */}
       {/* Rendered visible in the SSR HTML; `.hero-rise` fades it in at first
           paint (no dependency on hydration). */}
